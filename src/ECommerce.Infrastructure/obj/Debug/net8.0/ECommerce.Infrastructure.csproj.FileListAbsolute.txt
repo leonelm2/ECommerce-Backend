@@ -1,0 +1,38 @@
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.deps.json
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.runtimeconfig.json
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.dll
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.pdb
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Application.dll
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Domain.dll
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Application.pdb
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Domain.pdb
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.AssemblyInfo.cs
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerc.B0B31267.Up2Date
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.dll
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\refint\ECommerce.Infrastructure.dll
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.pdb
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.genruntimeconfig.cache
+C:\Users\leone\CleanArchitectureApi\src\ECommerce.Infrastructure\obj\Debug\net8.0\ref\ECommerce.Infrastructure.dll
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.dll
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\refint\ECommerce.Infrastructure.dll
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.pdb
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.AssemblyInfo.cs
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.deps.json
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.runtimeconfig.json
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.dll
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.pdb
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Application.dll
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Domain.dll
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Application.pdb
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Domain.pdb
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerc.B0B31267.Up2Date
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.genruntimeconfig.cache
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ref\ECommerce.Infrastructure.dll

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Jd5vB6WEgtU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\leone\\.nuget\\packages\\fluentvalidation\\11.4.0\\fluentvalidation.11.4.0.nupkg.sha512",
+    "C:\\Users\\leone\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",
+    "C:\\Users\\leone\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
