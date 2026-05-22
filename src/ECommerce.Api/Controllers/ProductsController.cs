@@ -51,6 +51,30 @@ public class ProductsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
     }
 
+    [HttpPut("{id:int}")]
+    [Authorize(Roles = UserRoles.Admin)]
+    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status422UnprocessableEntity)]
+    public async Task<IActionResult> Update(int id, [FromBody] UpdateProductCommand request)
+    {
+        if (id != request.Id)
+        {
+            return BadRequest(new ProblemDetails
+            {
+                Title = "Error de validación",
+                Detail = "El ID de la ruta no coincide con el ID del cuerpo.",
+                Status = StatusCodes.Status400BadRequest
+            });
+        }
+
+        var product = await _mediator.Send(request);
+        return Ok(product);
+    }
+
     [HttpDelete("{id:int}")]
     [Authorize(Roles = UserRoles.Admin)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
