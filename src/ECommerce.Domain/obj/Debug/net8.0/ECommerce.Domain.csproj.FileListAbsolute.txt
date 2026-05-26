@@ -20,3 +20,4 @@ C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce
 C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce.Domain.dll
 C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce.Domain.pdb
 C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\obj\Debug\net8.0\ref\ECommerce.Domain.dll
+C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\obj\Debug\net8.0\ECommerce.Domain.sourcelink.json
