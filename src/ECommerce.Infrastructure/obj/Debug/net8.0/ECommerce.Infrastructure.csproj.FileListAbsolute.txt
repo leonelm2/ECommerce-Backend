@@ -36,6 +36,7 @@ C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\E
 C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerc.B0B31267.Up2Date
 C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.genruntimeconfig.cache
 C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ref\ECommerce.Infrastructure.dll
+<<<<<<< HEAD
 C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.deps.json
 C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.runtimeconfig.json
 C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Infrastructure\bin\Debug\net8.0\ECommerce.Infrastructure.dll
@@ -56,3 +57,6 @@ C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Infrastructure\obj\Debu
 C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.pdb
 C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.genruntimeconfig.cache
 C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ref\ECommerce.Infrastructure.dll
+=======
+C:\Users\leone\ECommerce Backend\src\ECommerce.Infrastructure\obj\Debug\net8.0\ECommerce.Infrastructure.sourcelink.json
+>>>>>>> c1de9f8bb53bfb4b323aebdfa9bc77baf63a1bcf
