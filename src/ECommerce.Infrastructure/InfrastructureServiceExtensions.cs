@@ -1,5 +1,4 @@
 using ECommerce.Application.Interfaces;
-using ECommerce.Application.Security;
 using ECommerce.Application.Settings;
 using ECommerce.Infrastructure.Persistence;
 using ECommerce.Infrastructure.Repositories;

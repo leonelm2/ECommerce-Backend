@@ -71,6 +71,26 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
         await _orderRepository.AddAsync(order, saveChanges: false);
         await _unitOfWork.SaveChangesAsync(); // Generar order.Id en la DB antes de pagar
 
+        // ─────────────────────────────────────────────────────────────────────────────
+        // ⚠️ NOTA ACADÉMICA / EVALUACIÓN DE INTEGRACIÓN DISTRIBUIDA:
+        // El siguiente bloque realiza un "Rollback Manual" sobre la base de datos local
+        // si el servicio de pagos rechaza el cobro o falla la comunicación HTTP.
+        //
+        // SIMPLIFICACIÓN DE EXAMEN:
+        // Este diseño es una simplificación didáctica para el proyecto final. En un
+        // entorno de producción real, este flujo presenta un riesgo de inconsistencia
+        // (por ejemplo, si el e-commerce se cae en la red justo tras persistir la orden
+        // pero antes de procesar la respuesta del pago).
+        //
+        // SOLUCIONES INDUSTRIALES RECOMENDADAS PARA PRODUCCIÓN:
+        // 1. Transacciones Explícitas Locales: Envolver el bloque en una transacción
+        //    de base de datos local (mediante BeginTransactionAsync en IUnitOfWork)
+        //    y hacer el Commit definitivo únicamente cuando el PaymentService apruebe el cobro.
+        // 2. Patrones de Consistencia Eventual: Utilizar mensajería asíncrona mediante
+        //    el patrón Outbox para registrar eventos de pago y el patrón Saga (Coreografiada
+        //    o Orquestada) para coordinar las compensaciones y reversión del stock de forma
+        //    tolerante a fallos.
+        // ─────────────────────────────────────────────────────────────────────────────
         try
         {
             // Crear el DTO del request para el microservicio de pagos

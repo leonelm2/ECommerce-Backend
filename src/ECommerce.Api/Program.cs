@@ -2,7 +2,6 @@ using ECommerce.Api.Middleware;
 using ECommerce.Application.Behaviors;
 using ECommerce.Application.Commands.Orders;
 using ECommerce.Application.Commands.Products;
-using ECommerce.Application.Security;
 using ECommerce.Application.Settings;
 using ECommerce.Application.Validators;
 using ECommerce.Domain.Entities;
@@ -115,14 +114,16 @@ using (var scope = app.Services.CreateScope())
 
     if (!context.Users.Any(u => u.Role == UserRole.Admin))
     {
-        context.Users.Add(new User
+        var hasher = new Microsoft.AspNetCore.Identity.PasswordHasher<User>();
+        var adminUser = new User
         {
             Username = "admin",
             Email = "admin@ecommerce.com",
-            // PasswordHasher estático conservado para el seeding (no requiere DI aquí)
-            PasswordHash = PasswordHasher.Hash("Admin123!"),
             Role = UserRole.Admin
-        });
+        };
+        // Genera hash seguro con sal aleatoria (PBKDF2)
+        adminUser.PasswordHash = hasher.HashPassword(adminUser, "Admin123!");
+        context.Users.Add(adminUser);
         context.SaveChanges();
     }
 }
