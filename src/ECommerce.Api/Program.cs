@@ -1,10 +1,10 @@
-using ECommerce.Api.Models;
 using ECommerce.Api.Middleware;
 using ECommerce.Application.Behaviors;
 using ECommerce.Application.Commands.Orders;
 using ECommerce.Application.Commands.Products;
-using ECommerce.Application.Validators;
 using ECommerce.Application.Security;
+using ECommerce.Application.Settings;
+using ECommerce.Application.Validators;
 using ECommerce.Domain.Entities;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Persistence;
@@ -25,16 +25,17 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenLocalhost(5001, listenOptions => listenOptions.UseHttps());
 });
 
-// Add Infrastructure Services
+// Add Infrastructure Services (incluye repositorios, JwtTokenService e IPasswordHasher)
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>().AddProblemDetails();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateProductCommandValidator>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddMediatR(typeof(CreateProductCommand).Assembly);
 
-// JWT configuration
+// JWT configuration — JwtSettings ahora en Application.Settings para que Infrastructure pueda acceder
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>() ?? throw new InvalidOperationException("JwtSettings no configurado.");
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()
+    ?? throw new InvalidOperationException("JwtSettings no configurado.");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -118,6 +119,7 @@ using (var scope = app.Services.CreateScope())
         {
             Username = "admin",
             Email = "admin@ecommerce.com",
+            // PasswordHasher estático conservado para el seeding (no requiere DI aquí)
             PasswordHash = PasswordHasher.Hash("Admin123!"),
             Role = UserRole.Admin
         });
@@ -147,4 +149,3 @@ app.MapControllers();
 app.Run();
 
 public partial class Program { }
-

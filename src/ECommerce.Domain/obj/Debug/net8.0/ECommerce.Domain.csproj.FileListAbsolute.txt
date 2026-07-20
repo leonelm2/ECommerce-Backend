@@ -20,3 +20,15 @@ C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce
 C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce.Domain.dll
 C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce.Domain.pdb
 C:\Users\leone\ECommerce Backend\src\ECommerce.Domain\obj\Debug\net8.0\ref\ECommerce.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce.Domain.deps.json
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\bin\Debug\net8.0\ECommerce.Domain.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\ECommerce.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\ECommerce.Domain.AssemblyInfoInputs.cache
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\ECommerce.Domain.AssemblyInfo.cs
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\ECommerce.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\ECommerce.Domain.sourcelink.json
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\ECommerce.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\refint\ECommerce.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\ECommerce.Domain.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Domain\obj\Debug\net8.0\ref\ECommerce.Domain.dll

@@ -1,4 +1,6 @@
 using ECommerce.Application.Commands.Products;
+using ECommerce.Application.DTOs;
+using ECommerce.Application.Queries.Products;
 using ECommerce.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +23,7 @@ public class ProductsController : ControllerBase
 
     [HttpGet]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<ProductDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()
     {
         var products = await _mediator.Send(new GetAllProductsQuery());
@@ -30,7 +32,7 @@ public class ProductsController : ControllerBase
 
     [HttpGet("{id:int}")]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(int id)
     {
@@ -40,7 +42,7 @@ public class ProductsController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = UserRoles.Admin)]
-    [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ProductDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status403Forbidden)]
@@ -53,7 +55,7 @@ public class ProductsController : ControllerBase
 
     [HttpPut("{id:int}")]
     [Authorize(Roles = UserRoles.Admin)]
-    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status403Forbidden)]

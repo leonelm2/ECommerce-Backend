@@ -1,4 +1,4 @@
-using ECommerce.Domain.Entities;
+using ECommerce.Application.DTOs;
 using MediatR;
 
 namespace ECommerce.Application.Commands.Products;
@@ -8,4 +8,4 @@ public sealed record CreateProductCommand(
     string Description,
     decimal Price,
     int Stock,
-    int CategoryId) : IRequest<Product>;
+    int CategoryId) : IRequest<ProductDto>;

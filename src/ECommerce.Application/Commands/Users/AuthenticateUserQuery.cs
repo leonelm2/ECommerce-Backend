@@ -1,6 +1,3 @@
-﻿using ECommerce.Domain.Entities;
-using MediatR;
-
-namespace ECommerce.Application.Commands.Users;
-
-public sealed record AuthenticateUserQuery(string Username, string Password) : IRequest<User>;
+// Este archivo fue movido a:
+// ECommerce.Application.Queries.Users.AuthenticateUserQuery
+// Ruta: Application/Queries/Users/AuthenticateUserQuery.cs

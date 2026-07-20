@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj": {}
+    "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj": {
+    "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj",
         "projectName": "ECommerce.Application",
-        "projectPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj",
-        "packagesPath": "C:\\Users\\leone\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Application\\obj\\",
+        "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj",
+        "packagesPath": "C:\\Users\\Docente\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\leone\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Docente\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
-                "projectPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj"
+              "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
+                "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj"
               }
             }
           }
@@ -72,21 +72,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.419/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.422/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
+    "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj",
         "projectName": "ECommerce.Domain",
-        "projectPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj",
-        "packagesPath": "C:\\Users\\leone\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Domain\\obj\\",
+        "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj",
+        "packagesPath": "C:\\Users\\Docente\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\leone\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Docente\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -130,21 +130,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.419/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.422/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj": {
+    "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
         "projectName": "ECommerce.Infrastructure",
-        "projectPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\leone\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Docente\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\leone\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Docente\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -156,11 +156,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj": {
-                "projectPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj"
+              "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj": {
+                "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj"
               },
-              "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
-                "projectPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj"
+              "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
+                "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj"
               }
             }
           }
@@ -193,6 +193,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.*, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.1.2, )"
             }
           },
           "imports": [
@@ -211,7 +215,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.419/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.422/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

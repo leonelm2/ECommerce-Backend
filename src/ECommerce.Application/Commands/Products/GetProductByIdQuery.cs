@@ -1,6 +1,3 @@
-using ECommerce.Domain.Entities;
-using MediatR;
-
-namespace ECommerce.Application.Commands.Products;
-
-public sealed record GetProductByIdQuery(int Id) : IRequest<Product>;
+// Este archivo fue movido a:
+// ECommerce.Application.Queries.Products.GetProductByIdQuery
+// Ruta: Application/Queries/Products/GetProductByIdQuery.cs

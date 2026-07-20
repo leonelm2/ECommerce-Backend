@@ -1,6 +1,3 @@
-using ECommerce.Domain.Entities;
-using MediatR;
-
-namespace ECommerce.Application.Commands.Orders;
-
-public sealed record GetOrderByIdQuery(int Id) : IRequest<Order>;
+// Este archivo fue movido a:
+// ECommerce.Application.Queries.Orders.GetOrderByIdQuery
+// Ruta: Application/Queries/Orders/GetOrderByIdQuery.cs

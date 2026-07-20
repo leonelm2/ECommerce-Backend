@@ -1,10 +1,11 @@
+using ECommerce.Application.DTOs;
 using ECommerce.Application.Interfaces;
 using ECommerce.Domain.Entities;
 using MediatR;
 
 namespace ECommerce.Application.Commands.Products;
 
-public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Product>
+public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductDto>
 {
     private readonly IProductRepository _productRepository;
 
@@ -13,7 +14,7 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
         _productRepository = productRepository;
     }
 
-    public async Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<ProductDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var product = new Product
         {
@@ -25,6 +26,8 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
         };
 
         await _productRepository.AddAsync(product);
-        return product;
+
+        // Mapear la entidad a DTO antes de retornar — nunca exponer la entidad de dominio
+        return new ProductDto(product.Id, product.Name, product.Description, product.Price, product.Stock, product.CategoryId);
     }
 }
