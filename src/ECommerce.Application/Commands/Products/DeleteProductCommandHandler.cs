@@ -21,6 +21,11 @@ public sealed class DeleteProductCommandHandler : IRequestHandler<DeleteProductC
             throw new NotFoundException($"Producto con id {request.Id} no encontrado.");
         }
 
+        if (await _productRepository.HasOrderItemsAsync(request.Id))
+        {
+            throw new DomainRuleException($"No se puede eliminar el producto con id {request.Id} porque tiene órdenes asociadas.");
+        }
+
         await _productRepository.DeleteAsync(request.Id);
         return Unit.Value;
     }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "D9yR23d/3n4=",
+  "dgSpecHash": "VUJGDmtlVFk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Docente\\.nuget\\packages\\fluentvalidation\\11.4.0\\fluentvalidation.11.4.0.nupkg.sha512",
     "C:\\Users\\Docente\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

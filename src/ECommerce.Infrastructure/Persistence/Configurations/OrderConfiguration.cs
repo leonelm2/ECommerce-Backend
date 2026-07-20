@@ -10,6 +10,11 @@ namespace ECommerce.Infrastructure.Persistence.Configurations
         {
             builder.Property(o => o.OrderDate).IsRequired();
             builder.Property(o => o.TotalAmount).HasPrecision(18, 2).IsRequired();
+            builder.Property(o => o.Status)
+                .HasConversion<string>()
+                .HasMaxLength(20)
+                .IsRequired()
+                .HasDefaultValue(OrderStatus.Pending);
 
             builder.HasOne(o => o.User)
                 .WithMany(u => u.Orders)

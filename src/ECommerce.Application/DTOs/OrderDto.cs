@@ -21,4 +21,5 @@ public sealed record OrderDto(
     int UserId,
     DateTime OrderDate,
     decimal TotalAmount,
-    IEnumerable<OrderItemDto> Items);
+    IEnumerable<OrderItemDto> Items,
+    string Status);

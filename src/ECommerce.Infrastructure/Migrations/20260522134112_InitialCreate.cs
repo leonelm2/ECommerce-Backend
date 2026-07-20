@@ -52,7 +52,8 @@ namespace ECommerce.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false)
+                    TotalAmount = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),
+                    Status = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false, defaultValue: "Pending")
                 },
                 constraints: table =>
                 {

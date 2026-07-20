@@ -30,6 +30,12 @@ namespace ECommerce.Infrastructure.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("Pending");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 

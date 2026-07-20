@@ -21,5 +21,11 @@ namespace ECommerce.Infrastructure.Repositories
                 .Where(p => ids.Contains(p.Id))
                 .ToListAsync();
         }
+
+        public async Task<bool> HasOrderItemsAsync(int productId)
+        {
+            return await _context.OrderItems
+                .AnyAsync(oi => oi.ProductId == productId);
+        }
     }
 }

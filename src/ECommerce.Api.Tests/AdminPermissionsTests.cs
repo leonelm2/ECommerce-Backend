@@ -1,20 +1,32 @@
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace ECommerce.Api.Tests;
 
-public class AdminPermissionsTests : IClassFixture<WebApplicationFactory<Program>>
+public class AdminPermissionsTests
 {
     private readonly WebApplicationFactory<Program> _factory;
 
-    public AdminPermissionsTests(WebApplicationFactory<Program> factory)
+    public AdminPermissionsTests()
     {
-        _factory = factory;
+        Environment.SetEnvironmentVariable("JwtSettings__Secret", "SuperSecureTestSecret123!SuperSecureTestSecret123!", EnvironmentVariableTarget.Process);
+        Environment.SetEnvironmentVariable("JwtSettings__Issuer", "CleanArchitectureApi", EnvironmentVariableTarget.Process);
+        Environment.SetEnvironmentVariable("JwtSettings__Audience", "CleanArchitectureApiClient", EnvironmentVariableTarget.Process);
+        Environment.SetEnvironmentVariable("JwtSettings__ExpiresInMinutes", "60", EnvironmentVariableTarget.Process);
+        Environment.SetEnvironmentVariable("AdminSettings__Username", "admin", EnvironmentVariableTarget.Process);
+        Environment.SetEnvironmentVariable("AdminSettings__Email", "admin@ecommerce.com", EnvironmentVariableTarget.Process);
+        Environment.SetEnvironmentVariable("AdminSettings__Password", "Admin123!", EnvironmentVariableTarget.Process);
+
+        _factory = new WebApplicationFactory<Program>();
     }
 
     [Fact]

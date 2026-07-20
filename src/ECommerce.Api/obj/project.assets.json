@@ -3424,11 +3424,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Api\\ECommerce.Api.csproj",
+      "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api\\ECommerce.Api.csproj",
       "projectName": "ECommerce.Api",
-      "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Api\\ECommerce.Api.csproj",
+      "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api\\ECommerce.Api.csproj",
       "packagesPath": "C:\\Users\\Docente\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Api\\obj\\",
+      "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Docente\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3443,11 +3443,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj": {
-              "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj"
+            "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Application\\ECommerce.Application.csproj": {
+              "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Application\\ECommerce.Application.csproj"
             },
-            "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj"
+            "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Infrastructure\\ECommerce.Infrastructure.csproj"
             }
           }
         }

@@ -2,6 +2,7 @@ using ECommerce.Api.Middleware;
 using ECommerce.Application.Behaviors;
 using ECommerce.Application.Commands.Orders;
 using ECommerce.Application.Commands.Products;
+using ECommerce.Application.Interfaces;
 using ECommerce.Application.Settings;
 using ECommerce.Application.Validators;
 using ECommerce.Domain.Entities;
@@ -15,8 +16,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddUserSecrets<Program>(optional: true);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
@@ -31,10 +35,27 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateProductCommandValidat
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddMediatR(typeof(CreateProductCommand).Assembly);
 
-// JWT configuration — JwtSettings ahora en Application.Settings para que Infrastructure pueda acceder
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+builder.Services.Configure<AdminSettings>(builder.Configuration.GetSection("AdminSettings"));
+
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()
     ?? throw new InvalidOperationException("JwtSettings no configurado.");
+if (string.IsNullOrWhiteSpace(jwtSettings.Secret)
+    || jwtSettings.Secret.Contains("ReplaceWithSecure")
+    || Encoding.UTF8.GetByteCount(jwtSettings.Secret) < 32)
+{
+    throw new InvalidOperationException("JwtSettings:Secret debe configurarse mediante variables de entorno o User Secrets y tener al menos 32 bytes de longitud.");
+}
+
+var adminSettings = builder.Configuration.GetSection("AdminSettings").Get<AdminSettings>()
+    ?? throw new InvalidOperationException("AdminSettings no configurado.");
+if (string.IsNullOrWhiteSpace(adminSettings.Username)
+    || string.IsNullOrWhiteSpace(adminSettings.Email)
+    || string.IsNullOrWhiteSpace(adminSettings.Password)
+    || adminSettings.Password.Contains("ReplaceWithSecure"))
+{
+    throw new InvalidOperationException("AdminSettings debe configurarse mediante variables de entorno o User Secrets.");
+}
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -112,20 +133,26 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     context.Database.Migrate();
 
-    if (!context.Users.Any(u => u.Role == UserRole.Admin))
+    var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+    var adminUser = context.Users.FirstOrDefault(u => u.Role == UserRole.Admin);
+
+    if (adminUser is null)
     {
-        var hasher = new Microsoft.AspNetCore.Identity.PasswordHasher<User>();
-        var adminUser = new User
+        adminUser = new User
         {
-            Username = "admin",
-            Email = "admin@ecommerce.com",
+            Username = adminSettings.Username,
+            Email = adminSettings.Email,
             Role = UserRole.Admin
         };
-        // Genera hash seguro con sal aleatoria (PBKDF2)
-        adminUser.PasswordHash = hasher.HashPassword(adminUser, "Admin123!");
         context.Users.Add(adminUser);
-        context.SaveChanges();
     }
+
+    adminUser.Username = adminSettings.Username;
+    adminUser.Email = adminSettings.Email;
+    adminUser.Role = UserRole.Admin;
+    adminUser.PasswordHash = passwordHasher.Hash(adminSettings.Password);
+
+    context.SaveChanges();
 }
 
 app.UseExceptionHandler();

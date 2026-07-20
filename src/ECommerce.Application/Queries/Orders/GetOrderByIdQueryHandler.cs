@@ -30,6 +30,6 @@ public sealed class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery
             oi.UnitPrice,
             oi.Quantity * oi.UnitPrice));
 
-        return new OrderDto(order.Id, order.UserId, order.OrderDate, order.TotalAmount, items);
+        return new OrderDto(order.Id, order.UserId, order.OrderDate, order.TotalAmount, items, order.Status.ToString());
     }
 }

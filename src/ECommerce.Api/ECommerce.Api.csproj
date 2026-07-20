@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>ecommerce-api-20260720</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

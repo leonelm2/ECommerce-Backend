@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LHHaOkOhS8M=",
+  "dgSpecHash": "nFodF4SbBks=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Api\\ECommerce.Api.csproj",
+  "projectFilePath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api\\ECommerce.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Docente\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
     "C:\\Users\\Docente\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.1\\fluentvalidation.aspnetcore.11.3.1.nupkg.sha512",

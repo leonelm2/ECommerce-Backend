@@ -9,5 +9,11 @@ namespace ECommerce.Application.Interfaces
         /// Elimina el problema N+1 al crear órdenes con múltiples ítems.
         /// </summary>
         Task<IEnumerable<Product>> GetByIdsAsync(IEnumerable<int> ids);
+
+        /// <summary>
+        /// Determina si el producto tiene items de orden asociados.
+        /// Se usa para validar la eliminación con integridad referencial.
+        /// </summary>
+        Task<bool> HasOrderItemsAsync(int productId);
     }
 }

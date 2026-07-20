@@ -37,8 +37,6 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
         if (request.Items is null || !request.Items.Any())
             throw new DomainRuleException("La orden debe contener al menos un item.");
 
-        // FIX N+1: cargar TODOS los productos necesarios en una única query SQL (IN clause)
-        // en lugar de hacer una query por cada ítem del pedido.
         var productIds = request.Items.Select(i => i.ProductId).Distinct().ToList();
         var productMap = (await _productRepository.GetByIdsAsync(productIds))
             .ToDictionary(p => p.Id);
@@ -47,6 +45,7 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
         {
             UserId = request.UserId,
             OrderDate = DateTime.UtcNow,
+            Status = OrderStatus.Pending,
             OrderItems = new List<OrderItem>()
         };
 
@@ -55,7 +54,6 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
             if (!productMap.TryGetValue(item.ProductId, out var product))
                 throw new NotFoundException($"Producto con id {item.ProductId} no encontrado.");
 
-            // Lógica de dominio: ReduceStock valida stock y lanza InsufficientStockException
             product.ReduceStock(item.Quantity);
             await _productRepository.UpdateAsync(product, saveChanges: false);
 
@@ -63,51 +61,32 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
             {
                 ProductId = item.ProductId,
                 Quantity = item.Quantity,
-                UnitPrice = product.Price  // Precio capturado al momento de la compra
+                UnitPrice = product.Price
             });
         }
 
         order.TotalAmount = order.OrderItems.Sum(x => x.UnitPrice * x.Quantity);
         await _orderRepository.AddAsync(order, saveChanges: false);
-        await _unitOfWork.SaveChangesAsync(); // Generar order.Id en la DB antes de pagar
+        await _unitOfWork.SaveChangesAsync();
 
-        // ─────────────────────────────────────────────────────────────────────────────
-        // ⚠️ NOTA ACADÉMICA / EVALUACIÓN DE INTEGRACIÓN DISTRIBUIDA:
-        // El siguiente bloque realiza un "Rollback Manual" sobre la base de datos local
-        // si el servicio de pagos rechaza el cobro o falla la comunicación HTTP.
-        //
-        // SIMPLIFICACIÓN DE EXAMEN:
-        // Este diseño es una simplificación didáctica para el proyecto final. En un
-        // entorno de producción real, este flujo presenta un riesgo de inconsistencia
-        // (por ejemplo, si el e-commerce se cae en la red justo tras persistir la orden
-        // pero antes de procesar la respuesta del pago).
-        //
-        // SOLUCIONES INDUSTRIALES RECOMENDADAS PARA PRODUCCIÓN:
-        // 1. Transacciones Explícitas Locales: Envolver el bloque en una transacción
-        //    de base de datos local (mediante BeginTransactionAsync en IUnitOfWork)
-        //    y hacer el Commit definitivo únicamente cuando el PaymentService apruebe el cobro.
-        // 2. Patrones de Consistencia Eventual: Utilizar mensajería asíncrona mediante
-        //    el patrón Outbox para registrar eventos de pago y el patrón Saga (Coreografiada
-        //    o Orquestada) para coordinar las compensaciones y reversión del stock de forma
-        //    tolerante a fallos.
-        // ─────────────────────────────────────────────────────────────────────────────
         try
         {
-            // Crear el DTO del request para el microservicio de pagos
             var paymentRequest = new PaymentRequestDto(
                 order.Id,
                 order.UserId,
                 order.TotalAmount,
-                "ARS", // Moneda nacional del e-commerce
+                "ARS",
                 $"Pago de Orden #{order.Id} por usuario {order.UserId}"
             );
 
-            // Llamar al microservicio de pagos de forma síncrona/esperando respuesta
             var paymentResult = await _paymentServiceClient.ProcessPaymentAsync(paymentRequest, cancellationToken);
 
             if (paymentResult.Status == "Approved")
             {
-                // Mapear a DTO usando el productMap (ya cargado en memoria, sin queries adicionales)
+                order.Status = OrderStatus.Paid;
+                await _orderRepository.UpdateAsync(order, saveChanges: false);
+                await _unitOfWork.SaveChangesAsync();
+
                 var itemDtos = order.OrderItems.Select(oi => new OrderItemDto(
                     oi.Id,
                     oi.ProductId,
@@ -116,12 +95,13 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
                     oi.UnitPrice,
                     oi.Quantity * oi.UnitPrice));
 
-                return new OrderDto(order.Id, order.UserId, order.OrderDate, order.TotalAmount, itemDtos);
+                return new OrderDto(order.Id, order.UserId, order.OrderDate, order.TotalAmount, itemDtos, order.Status.ToString());
             }
             else
             {
-                // El pago fue RECHAZADO: Reversión (Rollback manual para mantener la DB limpia y consistente)
-                // 1. Restaurar el stock
+                order.Status = OrderStatus.Cancelled;
+                await _orderRepository.UpdateAsync(order, saveChanges: false);
+
                 foreach (var item in order.OrderItems)
                 {
                     if (productMap.TryGetValue(item.ProductId, out var product))
@@ -131,17 +111,16 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
                     }
                 }
 
-                // 2. Eliminar la orden creada
-                await _orderRepository.DeleteAsync(order.Id, saveChanges: false);
-                await _unitOfWork.SaveChangesAsync(); // Persiste los cambios de reversión
+                await _unitOfWork.SaveChangesAsync();
 
                 throw new DomainRuleException($"El pago fue rechazado. Motivo: {paymentResult.Message}");
             }
         }
         catch (Exception ex) when (ex is not DomainRuleException && ex is not NotFoundException && ex is not InsufficientStockException)
         {
-            // Error de conexión de red, timeout o problemas HTTP en el servicio de pagos
-            // Aplicamos reversión preventiva (Rollback) por consistencia del stock y las órdenes
+            order.Status = OrderStatus.Cancelled;
+            await _orderRepository.UpdateAsync(order, saveChanges: false);
+
             foreach (var item in order.OrderItems)
             {
                 if (productMap.TryGetValue(item.ProductId, out var product))
@@ -150,7 +129,7 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
                     await _productRepository.UpdateAsync(product, saveChanges: false);
                 }
             }
-            await _orderRepository.DeleteAsync(order.Id, saveChanges: false);
+
             await _unitOfWork.SaveChangesAsync();
 
             throw new DomainRuleException($"Fallo en la comunicación con el servicio de pagos. La orden fue cancelada por seguridad. Detalle: {ex.Message}");
