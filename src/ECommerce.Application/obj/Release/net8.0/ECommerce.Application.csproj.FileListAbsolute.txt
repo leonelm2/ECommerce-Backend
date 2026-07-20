@@ -1,0 +1,16 @@
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\bin\Release\net8.0\ECommerce.Application.deps.json
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\bin\Release\net8.0\ECommerce.Application.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\bin\Release\net8.0\ECommerce.Application.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\bin\Release\net8.0\ECommerce.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\bin\Release\net8.0\ECommerce.Domain.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerce.Application.csproj.AssemblyReference.cache
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerce.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerce.Application.AssemblyInfoInputs.cache
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerce.Application.AssemblyInfo.cs
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerce.Application.csproj.CoreCompileInputs.cache
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerce.Application.sourcelink.json
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerc.670E0CBE.Up2Date
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerce.Application.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\refint\ECommerce.Application.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ECommerce.Application.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\src\ECommerce.Application\obj\Release\net8.0\ref\ECommerce.Application.dll
