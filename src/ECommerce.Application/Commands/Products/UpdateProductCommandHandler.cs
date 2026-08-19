@@ -22,13 +22,12 @@ public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductC
 
         existingProduct.Name = request.Name;
         existingProduct.Description = request.Description;
-        existingProduct.UpdatePrice(request.Price);  // Usa el método de dominio con validación
+        existingProduct.UpdatePrice(request.Price);
         existingProduct.Stock = request.Stock;
         existingProduct.CategoryId = request.CategoryId;
 
         await _productRepository.UpdateAsync(existingProduct);
 
-        // Mapear la entidad a DTO antes de retornar — nunca exponer la entidad de dominio
         return new ProductDto(
             existingProduct.Id,
             existingProduct.Name,

@@ -16,8 +16,6 @@ public class AuthController : ControllerBase
     private readonly IMediator _mediator;
     private readonly IJwtTokenService _jwtTokenService;
 
-    // Se inyecta IJwtTokenService en lugar de IConfiguration:
-    // el controller ya no tiene responsabilidad sobre la generación del token.
     public AuthController(IMediator mediator, IJwtTokenService jwtTokenService)
     {
         _mediator = mediator;

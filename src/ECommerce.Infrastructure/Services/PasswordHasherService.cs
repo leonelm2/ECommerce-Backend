@@ -6,13 +6,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ECommerce.Infrastructure.Services;
 
-/// <summary>
-/// Implementación de seguridad utilizando el PasswordHasher de ASP.NET Core Identity.
-/// Implementa PBKDF2 (Password-Based Key Derivation Function 2) con sal (salt) aleatoria
-/// y factor de trabajo configurable por defecto de la plataforma.
-/// Reemplaza la versión insegura basada en SHA-256 plano.
-/// Mantiene compatibilidad con hashes legacy existentes para no romper usuarios ya creados.
-/// </summary>
 public sealed class PasswordHasherService : IPasswordHasher
 {
     private readonly PasswordHasher<object> _hasher = new();

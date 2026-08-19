@@ -29,13 +29,12 @@ public sealed class RegisterUserCommandHandler : IRequestHandler<RegisterUserCom
         {
             Username = request.Username,
             Email = request.Email,
-            PasswordHash = _passwordHasher.Hash(request.Password),  // Usa IPasswordHasher inyectable
+            PasswordHash = _passwordHasher.Hash(request.Password),
             Role = UserRole.User
         };
 
         await _userRepository.AddAsync(user);
 
-        // Mapear a DTO — nunca retornar la entidad con PasswordHash al controller
         return new UserDto(user.Id, user.Username, user.Email, user.Role.ToString());
     }
 }

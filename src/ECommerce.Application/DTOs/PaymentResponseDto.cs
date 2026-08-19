@@ -2,9 +2,6 @@ using System;
 
 namespace ECommerce.Application.DTOs;
 
-/// <summary>
-/// DTO de respuesta de pago devuelto por el PaymentService.
-/// </summary>
 public sealed record PaymentResponseDto(
     Guid PaymentId,
     int OrderId,

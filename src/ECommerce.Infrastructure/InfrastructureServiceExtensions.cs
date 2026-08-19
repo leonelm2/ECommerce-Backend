@@ -19,17 +19,14 @@ namespace ECommerce.Infrastructure
                 options.UseSqlite(configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("ECommerce.Infrastructure")));
 
-            // Repositorios
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // Servicios de seguridad
             services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddScoped<IPasswordHasher, PasswordHasherService>();
 
-            // Integración con PaymentService
             services.AddHttpContextAccessor();
             services.AddHttpClient<IPaymentServiceClient, PaymentServiceClient>(client =>
             {
@@ -37,7 +34,7 @@ namespace ECommerce.Infrastructure
                     ?? throw new InvalidOperationException("La URL de PaymentSettings:BaseUrl no está configurada.");
                 
                 client.BaseAddress = new Uri(baseUrl);
-                client.Timeout = TimeSpan.FromSeconds(10); // Timeout preventivo de 10 segundos
+                client.Timeout = TimeSpan.FromSeconds(10);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
 

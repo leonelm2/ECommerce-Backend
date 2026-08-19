@@ -3,9 +3,6 @@ using FluentValidation;
 
 namespace ECommerce.Application.Validators;
 
-/// <summary>
-/// Validador para AuthenticateUserQuery (ahora en namespace Queries.Users).
-/// </summary>
 public sealed class AuthenticateUserQueryValidator : AbstractValidator<AuthenticateUserQuery>
 {
     public AuthenticateUserQueryValidator()

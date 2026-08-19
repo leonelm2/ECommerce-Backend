@@ -9,11 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ECommerce.Infrastructure.Services;
 
-/// <summary>
-/// Implementación del servicio de generación de tokens JWT.
-/// Extrae la responsabilidad del AuthController, que solo debe orquestar
-/// el flujo HTTP, no manejar lógica de seguridad.
-/// </summary>
 public class JwtTokenService : IJwtTokenService
 {
     private readonly JwtSettings _jwtSettings;

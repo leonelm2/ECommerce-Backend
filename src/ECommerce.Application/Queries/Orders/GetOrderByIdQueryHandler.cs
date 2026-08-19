@@ -20,8 +20,6 @@ public sealed class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery
         if (order is null)
             throw new NotFoundException($"Orden con id {request.Id} no encontrada.");
 
-        // OrderRepository.GetByIdAsync carga OrderItems con Include(ThenInclude(Product)),
-        // por lo que oi.Product está disponible para mapear el nombre.
         var items = order.OrderItems.Select(oi => new OrderItemDto(
             oi.Id,
             oi.ProductId,

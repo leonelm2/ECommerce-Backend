@@ -11,10 +11,6 @@ namespace ECommerce.Infrastructure.Repositories
         {
         }
 
-        /// <summary>
-        /// Carga todos los productos solicitados en una única query SQL (IN clause).
-        /// Resuelve el problema N+1 en CreateOrderCommandHandler.
-        /// </summary>
         public async Task<IEnumerable<Product>> GetByIdsAsync(IEnumerable<int> ids)
         {
             return await _context.Products

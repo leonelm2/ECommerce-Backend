@@ -28,7 +28,6 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenLocalhost(5001, listenOptions => listenOptions.UseHttps());
 });
 
-// Add Infrastructure Services (incluye repositorios, JwtTokenService e IPasswordHasher)
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>().AddProblemDetails();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateProductCommandValidator>();
@@ -78,7 +77,6 @@ builder.Services.AddAuthorization();
 // Agregar controladores
 builder.Services.AddControllers();
 
-// Configurar Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -115,7 +113,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Agregar CORS si es necesario
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -157,7 +154,6 @@ using (var scope = app.Services.CreateScope())
 
 app.UseExceptionHandler();
 
-// Configurar el pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

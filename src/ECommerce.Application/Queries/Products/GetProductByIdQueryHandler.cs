@@ -5,7 +5,7 @@ using MediatR;
 
 namespace ECommerce.Application.Queries.Products;
 
-public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
+public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
 {
     private readonly IProductRepository _productRepository;
 
@@ -18,7 +18,7 @@ public sealed class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQ
     {
         var product = await _productRepository.GetByIdAsync(request.Id);
         if (product is null)
-            throw new NotFoundException($"Producto con id {request.Id} no encontrado.");
+            throw new NotFoundException($"Product with id {request.Id} not found.");
 
         return new ProductDto(product.Id, product.Name, product.Description, product.Price, product.Stock, product.CategoryId);
     }

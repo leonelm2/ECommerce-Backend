@@ -27,7 +27,6 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
 
         await _productRepository.AddAsync(product);
 
-        // Mapear la entidad a DTO antes de retornar — nunca exponer la entidad de dominio
         return new ProductDto(product.Id, product.Name, product.Description, product.Price, product.Stock, product.CategoryId);
     }
 }
