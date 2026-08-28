@@ -91,6 +91,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         }
 
         _logger.LogError(exception, "Error procesando la solicitud en {Path}", httpContext.Request.Path);
+        System.IO.File.AppendAllText("error.log", $"{DateTime.UtcNow}: {exception.ToString()}\n");
 
         httpContext.Response.ContentType = "application/problem+json";
         httpContext.Response.StatusCode = statusCode;
