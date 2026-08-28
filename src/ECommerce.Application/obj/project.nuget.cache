@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FUlJhmXeRyc=",
+  "dgSpecHash": "J14xU5r4ai8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Application\\ECommerce.Application.csproj",
+  "projectFilePath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Docente\\.nuget\\packages\\fluentvalidation\\11.4.0\\fluentvalidation.11.4.0.nupkg.sha512",
     "C:\\Users\\Docente\\.nuget\\packages\\mediatr\\11.1.0\\mediatr.11.1.0.nupkg.sha512",

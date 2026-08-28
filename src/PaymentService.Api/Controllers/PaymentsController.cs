@@ -1,6 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PaymentService.Api.DTOs;
-using System;
+using PaymentService.Api.Core.Application.Commands;
+using PaymentService.Api.Core.Application.DTOs;
 using System.Threading.Tasks;
 
 namespace PaymentService.Api.Controllers;
@@ -9,13 +10,16 @@ namespace PaymentService.Api.Controllers;
 [Route("api/[controller]")]
 public class PaymentsController : ControllerBase
 {
+    private readonly IMediator _mediator;
+
+    public PaymentsController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
     [HttpPost("process")]
     public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequestDto request)
     {
-        // Simulando un ligero retardo de red/procesamiento
-        await Task.Delay(500);
-
-        // Simulando lógica de validación básica
         if (request.Amount <= 0)
         {
             return BadRequest(new ProblemDetails 
@@ -25,18 +29,8 @@ public class PaymentsController : ControllerBase
             });
         }
 
-        // Simulando procesamiento exitoso
-        var response = new PaymentResponseDto(
-            PaymentId: Guid.NewGuid(),
-            OrderId: request.OrderId,
-            UserId: request.UserId,
-            Status: "Approved",
-            TransactionCode: $"TXN-{DateTime.UtcNow.Ticks}",
-            Amount: request.Amount,
-            Currency: request.Currency,
-            ProcessedAt: DateTime.UtcNow,
-            Message: "Pago procesado exitosamente"
-        );
+        var command = new ProcessPaymentCommand(request);
+        var response = await _mediator.Send(command);
 
         return Ok(response);
     }

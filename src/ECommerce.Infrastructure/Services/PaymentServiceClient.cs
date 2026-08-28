@@ -39,42 +39,31 @@ public sealed class PaymentServiceClient : IPaymentServiceClient
             }
         }
 
-        try
+        var httpResponse = await _httpClient.SendAsync(httpRequest, cancellationToken);
+
+        if (httpResponse.StatusCode == HttpStatusCode.Unauthorized)
         {
-            var httpResponse = await _httpClient.SendAsync(httpRequest, cancellationToken);
-
-            if (httpResponse.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                throw new AuthenticationException("Acceso no autorizado al servicio de pagos. Token JWT inválido o expirado.");
-            }
-
-            if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
-            {
-                var problem = await httpResponse.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>(cancellationToken: cancellationToken);
-                throw new DomainRuleException($"Datos de pago inválidos (400 Bad Request): {problem?.Detail ?? "Error de validación sintáctica."}");
-            }
-
-            if (httpResponse.StatusCode == HttpStatusCode.UnprocessableEntity)
-            {
-                var problem = await httpResponse.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>(cancellationToken: cancellationToken);
-                throw new DomainRuleException($"Fallo de reglas de negocio en el pago (422 Unprocessable): {problem?.Detail}");
-            }
-
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                var paymentResult = await httpResponse.Content.ReadFromJsonAsync<PaymentResponseDto>(cancellationToken: cancellationToken);
-                return paymentResult ?? throw new DomainRuleException("Respuesta de pago vacía recibida del servidor.");
-            }
-
-            throw new DomainRuleException($"Error inesperado del servicio de pagos. HTTP: {httpResponse.StatusCode}");
+            throw new AuthenticationException("Acceso no autorizado al servicio de pagos. Token JWT inválido o expirado.");
         }
-        catch (HttpRequestException ex)
+
+        if (httpResponse.StatusCode == HttpStatusCode.BadRequest)
         {
-            throw new DomainRuleException($"Error de comunicación con el servicio de pagos: {ex.Message}");
+            var problem = await httpResponse.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>(cancellationToken: cancellationToken);
+            throw new DomainRuleException($"Datos de pago inválidos (400 Bad Request): {problem?.Detail ?? "Error de validación sintáctica."}");
         }
-        catch (TaskCanceledException)
+
+        if (httpResponse.StatusCode == HttpStatusCode.UnprocessableEntity)
         {
-            throw new DomainRuleException("Timeout al comunicarse con el servicio de pagos.");
+            var problem = await httpResponse.Content.ReadFromJsonAsync<Microsoft.AspNetCore.Mvc.ProblemDetails>(cancellationToken: cancellationToken);
+            throw new DomainRuleException($"Fallo de reglas de negocio en el pago (422 Unprocessable): {problem?.Detail}");
         }
+
+        if (httpResponse.IsSuccessStatusCode)
+        {
+            var paymentResult = await httpResponse.Content.ReadFromJsonAsync<PaymentResponseDto>(cancellationToken: cancellationToken);
+            return paymentResult ?? throw new DomainRuleException("Respuesta de pago vacía recibida del servidor.");
+        }
+
+        throw new DomainRuleException($"Error inesperado del servicio de pagos. HTTP: {httpResponse.StatusCode}");
     }
 }

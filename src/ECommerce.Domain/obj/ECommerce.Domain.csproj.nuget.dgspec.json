@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {}
+    "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
+    "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Domain\\ECommerce.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj",
         "projectName": "ECommerce.Domain",
-        "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Domain\\ECommerce.Domain.csproj",
+        "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj",
         "packagesPath": "C:\\Users\\Docente\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Docente\\AppData\\Roaming\\NuGet\\NuGet.Config"

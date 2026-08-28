@@ -1,61 +1,81 @@
-# ECommerce API - Backend
+# ECommerce API & PaymentService - Backend
 
-API REST de un ecommerce hecha con .NET 8, Clean Architecture y JWT.
+API REST de un ecommerce hecha con .NET 8, Clean Architecture, CQRS (MediatR) y JWT.
+El proyecto incluye **dos microservicios independientes** comunicados a través de HTTP.
 
-Usa SQLite como base de datos, Entity Framework Core para la persistencia, MediatR para separar los casos de uso (CQRS), y FluentValidation para validar los requests.
+1. **ECommerce.Api**: El sistema principal de gestión de órdenes y productos.
+2. **PaymentService.Api**: Servicio dedicado de procesamiento de pagos.
+
+Ambos proyectos aplican principios de Clean Architecture.
 
 ## Estructura del proyecto
 
+### ECommerce
 - **ECommerce.Domain**: entidades, enums y excepciones
 - **ECommerce.Application**: commands, queries, DTOs, validators e interfaces
-- **ECommerce.Infrastructure**: repositorios, DbContext, servicios (JWT, hashing, cliente de pagos)
+- **ECommerce.Infrastructure**: repositorios, DbContext, servicios (JWT, hashing, cliente HTTP de pagos)
 - **ECommerce.Api**: controllers, middleware de excepciones, configuración
+
+### PaymentService
+- Estructurado internamente con carpetas `Core/Domain`, `Core/Application`, e `Infrastructure` para aislar reglas de negocio, y controladores ligeros.
+
+## Reglas de Negocio del PaymentService
+- Aprueba pagos menores a **$100.000**.
+- Rechaza pagos iguales o mayores a **$100.000**.
 
 ## Cómo correr
 
-Necesitás tener .NET 8 SDK instalado.
+Para probar el flujo completo (crear una orden y que se pague), **DEBEN LEVANTARSE AMBOS SERVICIOS**.
 
+### Opción 1: Visual Studio
+1. Haz clic derecho sobre la solución `CleanArchitectureApi`.
+2. Selecciona **"Establecer proyectos de inicio..."** (Set Startup Projects...).
+3. Selecciona **"Proyectos de inicio múltiples"** (Multiple startup projects).
+4. Pon la acción **"Iniciar"** (Start) para `ECommerce.Api` y `PaymentService.Api`.
+5. Presiona F5.
+
+### Opción 2: CLI (Consola)
+Abre dos terminales diferentes.
+
+En la terminal 1 (Levantar PaymentService en puerto 5200):
 ```bash
-dotnet restore
-dotnet build
+dotnet run --project src/PaymentService.Api
+```
+
+En la terminal 2 (Levantar ECommerce en puerto 5117/5001):
+```bash
 dotnet run --project src/ECommerce.Api
 ```
 
-La base de datos se crea sola al iniciar (SQLite). Si querés aplicar migraciones manualmente:
+### Base de Datos
+La base de datos se crea sola al iniciar ECommerce (SQLite). Si querés aplicar migraciones manualmente:
 
 ```bash
 dotnet ef database update -p src/ECommerce.Infrastructure -s src/ECommerce.Api
 ```
 
-## Tests
-
-```bash
-dotnet test
-```
-
-## Swagger
+## Swagger y Puertos
 
 Una vez corriendo, entrá a:
-- http://localhost:5117
-- https://localhost:5001
+- ECommerce API: http://localhost:5117
+- PaymentService API: http://localhost:5200 (Solo tiene el endpoint de pagos, es consumido por ECommerce).
 
-## Usuario admin
+## Usuario admin de prueba
 
-Se crea automaticamente al iniciar:
+Se crea automaticamente al iniciar (configurado en appsettings.json):
 - **Usuario**: `admin`
-- **Contraseña**: `Admin123!`
+- **Contraseña**: `AdminPassword123!`
+- **Email**: `admin@ecommerce.com`
 - **Rol**: `Admin`
 
-## Endpoints principales
+## Endpoints principales y Flujo
 
-- `POST /api/auth/register` - registrar usuario
-- `POST /api/auth/login` - login (devuelve token JWT)
-- `GET /api/products` - listar productos (público)
-- `GET /api/products/{id}` - obtener producto por id
-- `POST /api/products` - crear producto (solo admin)
-- `PUT /api/products/{id}` - editar producto (solo admin)
-- `DELETE /api/products/{id}` - borrar producto (solo admin)
-- `POST /api/orders` - crear orden
-- `GET /api/orders/{id}` - ver orden por id
+1. `POST /api/auth/register` - registrar usuario
+2. `POST /api/auth/login` - login (devuelve token JWT)
+3. `POST /api/orders` - crear orden
+    - Cuando se crea, el ECommerce contacta automáticamente al PaymentService vía HTTP usando IHttpClientFactory.
+    - Si PaymentService **aprueba** el pago (<$100.000), la orden queda en estado `Paid`.
+    - Si PaymentService **rechaza** el pago (>=$100.000), la orden queda en estado `PaymentRejected`.
+    - Si PaymentService está **caído**, se controla la excepción (Timeout o HttpRequestException), no se cae la app, y la orden queda en estado `PaymentRejected` con mensaje de error.
 
 Para los endpoints protegidos, en Swagger hay que poner el token con formato `Bearer <token>` en el botón Authorize.

@@ -129,11 +129,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Application\\ECommerce.Application.csproj",
+      "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj",
       "projectName": "ECommerce.Application",
-      "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Application\\ECommerce.Application.csproj",
+      "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\ECommerce.Application.csproj",
       "packagesPath": "C:\\Users\\Docente\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Application\\obj\\",
+      "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Docente\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -148,8 +148,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
-              "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Domain\\ECommerce.Domain.csproj"
+            "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj": {
+              "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend\\src\\ECommerce.Domain\\ECommerce.Domain.csproj"
             }
           }
         }

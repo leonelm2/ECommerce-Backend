@@ -1,6 +1,6 @@
 using System;
 
-namespace PaymentService.Api.DTOs;
+namespace PaymentService.Api.Core.Application.DTOs;
 
 public sealed record PaymentResponseDto(
     Guid PaymentId,

@@ -83,7 +83,7 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
 
             if (paymentResult.Status == "Approved")
             {
-                order.Status = OrderStatus.Paid;
+                order.MarkAsPaid(paymentResult.TransactionCode ?? Guid.NewGuid().ToString());
                 await _orderRepository.UpdateAsync(order, saveChanges: false);
                 await _unitOfWork.SaveChangesAsync();
 
@@ -99,7 +99,7 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
             }
             else
             {
-                order.Status = OrderStatus.Cancelled;
+                order.MarkPaymentAsRejected(paymentResult.Message ?? "Pago rechazado por PaymentService.");
                 await _orderRepository.UpdateAsync(order, saveChanges: false);
 
                 foreach (var item in order.OrderItems)
@@ -116,9 +116,9 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
                 throw new DomainRuleException($"El pago fue rechazado. Motivo: {paymentResult.Message}");
             }
         }
-        catch (Exception ex) when (ex is not DomainRuleException && ex is not NotFoundException && ex is not InsufficientStockException)
+        catch (HttpRequestException ex)
         {
-            order.Status = OrderStatus.Cancelled;
+            order.MarkPaymentAsRejected("Error de comunicación con PaymentService: Servicio no disponible o timeout.");
             await _orderRepository.UpdateAsync(order, saveChanges: false);
 
             foreach (var item in order.OrderItems)
@@ -132,7 +132,43 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
 
             await _unitOfWork.SaveChangesAsync();
 
-            throw new DomainRuleException($"Fallo en la comunicación con el servicio de pagos. La orden fue cancelada por seguridad. Detalle: {ex.Message}");
+            throw new DomainRuleException($"Fallo en la comunicación con el servicio de pagos: {ex.Message}");
+        }
+        catch (TaskCanceledException ex)
+        {
+            order.MarkPaymentAsRejected("Timeout de comunicación con PaymentService.");
+            await _orderRepository.UpdateAsync(order, saveChanges: false);
+
+            foreach (var item in order.OrderItems)
+            {
+                if (productMap.TryGetValue(item.ProductId, out var product))
+                {
+                    product.Stock += item.Quantity;
+                    await _productRepository.UpdateAsync(product, saveChanges: false);
+                }
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+
+            throw new DomainRuleException($"Timeout al contactar servicio de pagos: {ex.Message}");
+        }
+        catch (Exception ex) when (ex is not DomainRuleException && ex is not NotFoundException && ex is not InsufficientStockException)
+        {
+            order.Cancel();
+            await _orderRepository.UpdateAsync(order, saveChanges: false);
+
+            foreach (var item in order.OrderItems)
+            {
+                if (productMap.TryGetValue(item.ProductId, out var product))
+                {
+                    product.Stock += item.Quantity;
+                    await _productRepository.UpdateAsync(product, saveChanges: false);
+                }
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+
+            throw new DomainRuleException($"Fallo interno. La orden fue cancelada por seguridad. Detalle: {ex.Message}");
         }
     }
 }
