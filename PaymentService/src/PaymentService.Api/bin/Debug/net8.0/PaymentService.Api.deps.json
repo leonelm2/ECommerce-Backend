@@ -10,6 +10,8 @@
         "dependencies": {
           "MediatR": "14.2.0",
           "Microsoft.AspNetCore.OpenApi": "8.0.28",
+          "PaymentService.Application": "1.0.0",
+          "PaymentService.Infrastructure": "1.0.0",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "runtime": {
@@ -165,6 +167,37 @@
             "fileVersion": "10.0.25.52411"
           }
         }
+      },
+      "PaymentService.Application/1.0.0": {
+        "dependencies": {
+          "MediatR": "14.2.0",
+          "PaymentService.Domain": "1.0.0"
+        },
+        "runtime": {
+          "PaymentService.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "PaymentService.Domain/1.0.0": {
+        "runtime": {
+          "PaymentService.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "PaymentService.Infrastructure/1.0.0": {
+        "dependencies": {
+          "PaymentService.Application": "1.0.0"
+        },
+        "runtime": {
+          "PaymentService.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -285,6 +318,21 @@
       "sha512": "sha512-0KdBK+h7G13PuOSC2R/DalAoFMvdYMznvGRuICtkdcUMXgl/gYXsG6z4yUvTxHSMACorWgHCU1Faq0KUHU6yAQ==",
       "path": "system.diagnostics.diagnosticsource/10.0.0",
       "hashPath": "system.diagnostics.diagnosticsource.10.0.0.nupkg.sha512"
+    },
+    "PaymentService.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PaymentService.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PaymentService.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

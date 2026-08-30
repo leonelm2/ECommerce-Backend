@@ -1,0 +1,12 @@
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\bin\Debug\net8.0\PaymentService.Domain.deps.json
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\bin\Debug\net8.0\PaymentService.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\bin\Debug\net8.0\PaymentService.Domain.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\PaymentService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\PaymentService.Domain.AssemblyInfoInputs.cache
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\PaymentService.Domain.AssemblyInfo.cs
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\PaymentService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\PaymentService.Domain.sourcelink.json
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\PaymentService.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\refint\PaymentService.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\PaymentService.Domain.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Domain\obj\Debug\net8.0\ref\PaymentService.Domain.dll

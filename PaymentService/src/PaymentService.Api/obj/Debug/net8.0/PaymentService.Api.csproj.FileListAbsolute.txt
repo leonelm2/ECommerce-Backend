@@ -84,3 +84,9 @@ C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api
 C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\obj\Debug\net8.0\PaymentService.Api.pdb
 C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\obj\Debug\net8.0\PaymentService.Api.genruntimeconfig.cache
 C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\obj\Debug\net8.0\ref\PaymentService.Api.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\bin\Debug\net8.0\PaymentService.Application.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\bin\Debug\net8.0\PaymentService.Domain.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\bin\Debug\net8.0\PaymentService.Infrastructure.dll
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\bin\Debug\net8.0\PaymentService.Application.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\bin\Debug\net8.0\PaymentService.Infrastructure.pdb
+C:\Users\Docente\Desktop\ECommerce-Backend\PaymentService\src\PaymentService.Api\bin\Debug\net8.0\PaymentService.Domain.pdb

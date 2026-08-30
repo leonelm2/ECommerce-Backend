@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PaymentService.Api.Core.Application.Commands;
-using PaymentService.Api.Core.Application.DTOs;
+using PaymentService.Application.Commands;
+using PaymentService.Application.DTOs;
 using System.Threading.Tasks;
 
 namespace PaymentService.Api.Controllers;
