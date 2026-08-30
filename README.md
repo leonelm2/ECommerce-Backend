@@ -39,19 +39,19 @@ Abre dos terminales diferentes.
 
 En la terminal 1 (Levantar PaymentService en puerto 5200):
 ```bash
-dotnet run --project src/PaymentService.Api
+dotnet run --project PaymentService/src/PaymentService.Api
 ```
 
 En la terminal 2 (Levantar ECommerce en puerto 5117/5001):
 ```bash
-dotnet run --project src/ECommerce.Api
+dotnet run --project ECommerce/src/ECommerce.Api
 ```
 
 ### Base de Datos
 La base de datos se crea sola al iniciar ECommerce (SQLite). Si querés aplicar migraciones manualmente:
 
 ```bash
-dotnet ef database update -p src/ECommerce.Infrastructure -s src/ECommerce.Api
+dotnet ef database update -p ECommerce/src/ECommerce.Infrastructure -s ECommerce/src/ECommerce.Api
 ```
 
 ## Swagger y Puertos
