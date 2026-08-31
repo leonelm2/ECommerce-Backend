@@ -1,7 +1,7 @@
 # ECommerce API & PaymentService - Backend
 
 API REST de un ecommerce hecha con .NET 8, Clean Architecture, CQRS (MediatR) y JWT.
-El proyecto incluye **dos microservicios independientes** comunicados a través de HTTP.
+El proyecto consiste en un **monorepositorio con dos carpetas** que contienen dos microservicios independientes comunicados a través de HTTP. Para el trabajo final se eligió implementar la **Opción 1 (PaymentService)**.
 
 1. **ECommerce.Api**: El sistema principal de gestión de órdenes y productos.
 2. **PaymentService.Api**: Servicio dedicado de procesamiento de pagos.
@@ -18,10 +18,57 @@ Ambos proyectos aplican principios de Clean Architecture.
 
 ### PaymentService
 - Estructurado internamente con carpetas `Core/Domain`, `Core/Application`, e `Infrastructure` para aislar reglas de negocio, y controladores ligeros.
+- **Persistencia en memoria**: Dado que el servicio es simple y su principal objetivo es procesar una regla de negocio sobre un pago, no utiliza base de datos ni EF Core (todo el estado y la validación son transitorios y en memoria).
+- **Comunicación sin JWT protegido**: El endpoint `/api/payments/process` no tiene el atributo `[Authorize]` ya que se asume que este microservicio será alcanzable de manera interna sólo por el ECommerce (que actúa de Gateway y sí delega el JWT). Esto simplifica la validación de tokens en la comunicación interna.
 
 ## Reglas de Negocio del PaymentService
 - Aprueba pagos menores a **$100.000**.
 - Rechaza pagos iguales o mayores a **$100.000**.
+
+### Contrato de Comunicación (ECommerce -> PaymentService)
+
+Ejemplo concreto de la comunicación por HTTP cuando se procesa el pago:
+
+**Request**
+`POST /api/payments/process`
+```json
+{
+  "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "userId": "user-123",
+  "amount": 45000,
+  "currency": "ARS"
+}
+```
+
+**Response - Aprobado (monto < 100.000)**
+```json
+{
+  "paymentId": "481a5fc5-f621-4d32-9c95-4673fb3b7d1e",
+  "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "userId": "user-123",
+  "status": "Approved",
+  "transactionCode": "TXN-638234123456789012",
+  "amount": 45000,
+  "currency": "ARS",
+  "processedAt": "2026-08-31T15:23:46Z",
+  "message": "Pago procesado exitosamente"
+}
+```
+
+**Response - Rechazado (monto >= 100.000)**
+```json
+{
+  "paymentId": "73a4b6c1-a2c3-4d45-9e67-890abcdef123",
+  "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "userId": "user-123",
+  "status": "Rejected",
+  "transactionCode": "TXN-638234123456789013",
+  "amount": 150000,
+  "currency": "ARS",
+  "processedAt": "2026-08-31T15:23:47Z",
+  "message": "Pago rechazado. El monto supera el límite permitido."
+}
+```
 
 ## Cómo correr
 

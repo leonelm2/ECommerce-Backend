@@ -1,71 +1,114 @@
-# Guía de Estudio: Defensa Final - ECommerce & PaymentService
+# 🎓 Guía Definitiva de Estudio: Defensa Final - ECommerce & PaymentService
 
-Esta guía está diseñada para que puedas preparar y ensayar tu defensa oral basándote en los criterios de evaluación y los puntos requeridos por la cátedra. Contiene las preguntas clave que te pueden hacer y la ruta exacta a los archivos donde debes mostrar la respuesta.
+Esta guía contiene absolutamente todo lo que necesitas saber y entender de tu proyecto para defenderlo con éxito. Está pensada para que la leas de principio a fin, entiendas el "por qué" de cada decisión técnica, y sepas exactamente qué responder a las preguntas del profesor.
 
-## 1. Clean Architecture y Regla de Dependencia
-**Pregunta:** *Señalame cada capa en el proyecto y justificá la regla de dependencia (por qué Application no referencia a Infrastructure).*
-*   **Dónde mostrarlo:** 
-    *   Abre el archivo `CleanArchitectureApi.sln` (o los `.sln` individuales) y muestra la estructura de carpetas (`Domain`, `Application`, `Infrastructure`, `Api`).
-    *   Abre el archivo `ECommerce.Application.csproj` y muestra que solo hace referencia a `ECommerce.Domain`.
-*   **Respuesta a estudiar:** 
-    > "La regla de dependencia de Clean Architecture dicta que las dependencias solo pueden apuntar hacia adentro (hacia el Dominio). `Application` contiene la lógica de negocio (casos de uso) y no debe depender de `Infrastructure` porque la lógica no debe acoplarse a tecnologías concretas como bases de datos (EF Core) o clientes HTTP. Si mañana cambiamos SQL Server por MongoDB, los casos de uso en `Application` no cambian ni una línea."
+---
 
-## 2. CQRS y MediatR
-**Pregunta:** *Mostrame un Command y un Query concretos con sus Handlers. Explicá qué hace cada uno, por qué usaron MediatR y qué pasaría si pusieran esa lógica directamente en el Controller.*
-*   **Dónde mostrarlo:** 
-    *   Command: `ECommerce/src/ECommerce.Application/Commands/Orders/CreateOrderCommand.cs` y su handler.
-    *   Query: `ECommerce/src/ECommerce.Application/Queries/Products/GetAllProductsQuery.cs` y su handler.
-*   **Respuesta a estudiar:**
-    > "Un **Command** es una intención de cambiar el estado del sistema (ej: crear una orden), mientras que un **Query** es solo una lectura de datos (ej: traer productos) sin modificar nada. Usamos **MediatR** para implementar este patrón (CQRS). Sirve para desacoplar el controlador de la lógica de negocio. Si pusiéramos la lógica en el Controller, este tendría muchísimas responsabilidades, inyectaría demasiados repositorios, sería difícil de testear unitariamente y romperíamos el principio de responsabilidad única (SRP)."
+## 🏗️ 1. Visión General del Proyecto
 
-## 3. Reglas de Negocio en el Dominio
-**Pregunta:** *Señalá dónde vive una regla de negocio y explicala.*
-*   **Dónde mostrarlo:** 
-    *   `PaymentService/src/PaymentService.Api/Core/Domain/Entities/Payment.cs` (Método `IsApproved()`).
-*   **Respuesta a estudiar:**
-    > "Las reglas de negocio no deben estar tiradas en los Handlers o Controllers, deben estar encapsuladas en las entidades (Dominio Rico). Acá en la entidad `Payment`, el método `IsApproved()` contiene la regla que dice que un pago se aprueba solo si el monto es menor a $100.000. La entidad controla y valida su propio estado."
+**¿Qué es este proyecto?**
+Es una API REST para un sistema de ECommerce, acompañada de un microservicio secundario (PaymentService) para simular el procesamiento de pagos.
+Están desarrollados en **.NET 8**, utilizando **C#**.
 
-## 4. Comunicación HTTP y Cliente Tipado
-**Pregunta:** *Mostrá el registro de HttpClient y explicá por qué usan IHttpClientFactory y no `new HttpClient()`.*
-*   **Dónde mostrarlo:** 
-    *   `ECommerce/src/ECommerce.Infrastructure/InfrastructureServiceExtensions.cs` (Línea donde dice `services.AddHttpClient<IPaymentServiceClient, PaymentServiceClient>`).
-*   **Respuesta a estudiar:**
-    > "Registramos un 'Typed Client' mediante `IHttpClientFactory`. No usamos `new HttpClient()` manualmente porque cada instancia de HttpClient abre conexiones a nivel de sistema operativo (sockets). Si creamos muchos y no los liberamos bien, generamos un problema llamado *Socket Exhaustion*. Además, el factory maneja internamente el ciclo de vida de los handlers y responde correctamente a cambios de DNS."
+**Tecnologías y Patrones Clave (Palabras que debes mencionar):**
+*   **Clean Architecture (Arquitectura Limpia):** Para separar las responsabilidades y que el negocio no dependa de la tecnología.
+*   **CQRS (Command Query Responsibility Segregation):** Separación de operaciones de escritura (Commands) y lectura (Queries) usando la librería **MediatR**.
+*   **JWT (JSON Web Tokens):** Para seguridad, autenticación y autorización.
+*   **Entity Framework Core:** Como ORM (Object-Relational Mapper) usando Code-First y base de datos SQLite.
+*   **Comunicación HTTP síncrona:** El ECommerce se comunica con el PaymentService a través de un cliente HTTP tipado (`IHttpClientFactory`).
 
-## 5. Contratos y DTOs
-**Pregunta:** *Señalá el DTO de contrato y explicá por qué no exponen la entidad de dominio por HTTP.*
-*   **Dónde mostrarlo:** 
-    *   `PaymentRequestDto.cs` y `PaymentResponseDto.cs`.
-*   **Respuesta a estudiar:**
-    > "Usamos DTOs (Data Transfer Objects) para definir el contrato de la API. No exponemos la entidad de dominio (`Order` o `Payment`) porque la entidad puede tener datos sensibles, referencias circulares o propiedades de navegación a la base de datos que no le importan al cliente. El DTO asegura que solo viaja por la red la información estrictamente necesaria."
+---
 
-## 6. Flujo End-to-End y Resiliencia
-**Pregunta:** *Recorré una request completa en voz alta y explicá qué ocurre si el segundo servicio no responde.*
-*   **Dónde mostrarlo:** 
-    *   `ECommerce/src/ECommerce.Application/Commands/Orders/CreateOrderCommandHandler.cs`.
-*   **Respuesta a estudiar:**
-    > "1. Entra la request al `OrdersController`.\n2. Se despacha el `CreateOrderCommand` a través de MediatR.\n3. El Handler busca los productos, verifica stock, crea la `Order` y la guarda temporalmente.\n4. El Handler llama al `_paymentServiceClient.ProcessPaymentAsync`.\n5. Si responde 'Approved', se marca la orden como pagada. Si responde 'Rejected', se marca como rechazada y se devuelve el stock.\n**¿Qué pasa si el servicio de pagos está caído?** El bloque `catch (HttpRequestException)` o `catch (TaskCanceledException)` atrapa el error (ya que configuramos un timeout de 10 segundos). En lugar de que la app principal crashee, marcamos la orden como `PaymentRejected`, devolvemos el stock reservado y lanzamos una excepción de dominio clara indicando que el servicio no está disponible."
+## 📐 2. Arquitectura: Clean Architecture
 
-## 7. Configuración (Appsettings)
-**Pregunta:** *Mostrá de dónde sale la URL del segundo servicio y qué pasa si cambia el puerto.*
-*   **Dónde mostrarlo:** 
-    *   `ECommerce/src/ECommerce.Api/appsettings.json` (Sección `PaymentSettings:BaseUrl`).
-*   **Respuesta a estudiar:**
-    > "La URL está centralizada en el `appsettings.json`. Si cambia el puerto o pasamos el servicio a un entorno en la nube, solo editamos este archivo de texto. No tenemos que modificar el código C# ni recompilar la aplicación."
+El proyecto se divide en 4 capas concéntricas. La **Regla de Dependencia** es vital: *Las capas externas dependen de las internas, pero las internas NUNCA dependen de las externas.*
 
-## 8. Seguridad: JWT, Autenticación y Autorización
-**Pregunta:** *Mostrá cómo se genera el JWT, explicá la diferencia entre autenticación y autorización, y mostrá un endpoint protegido.*
-*   **Dónde mostrarlo:** 
-    *   Generación: `ECommerce/src/ECommerce.Infrastructure/Services/JwtTokenService.cs`.
-    *   Endpoint protegido: Cualquier Controller con `[Authorize(Roles="Admin")]`.
-    *   Admin: `appsettings.json` (Sección `AdminSettings`).
-*   **Respuesta a estudiar:**
-    > "En el `JwtTokenService` generamos el token inyectando claims (información del usuario como su ID, Email y su Rol). \n**Diferencia:** La *Autenticación* responde a '¿Quién eres?' (es decir, el login que verifica email y password para darte el token). La *Autorización* responde a '¿Qué puedes hacer?' (es el atributo `[Authorize(Roles="Admin")]` que lee los claims del token y bloquea a un usuario común si no tiene el rol necesario).\nEl usuario Admin se crea dinámicamente al levantar la aplicación leyendo los datos del appsettings, asegurando que siempre exista un administrador inicial."
+1.  **Domain (Capa de Dominio):** Es el corazón. No depende de NADA. Contiene las Entidades (`Order`, `Product`), los Enums, Excepciones personalizadas y las Reglas de Negocio (ej: validar si hay stock o si un monto es válido).
+2.  **Application (Capa de Aplicación):** Depende de Domain. Contiene la lógica de los Casos de Uso (ej: "Crear Orden"). Aquí viven los Commands, Queries, Handlers, DTOs (Data Transfer Objects) e interfaces (ej: `IOrderRepository`). **NO SABE** que usas SQL, ni Entity Framework, ni HTTP.
+3.  **Infrastructure (Capa de Infraestructura):** Depende de Application (y por ende, de Domain). Aquí es donde nos conectamos con el mundo exterior. Implementa el `DbContext` de Entity Framework, los repositorios reales, la generación de JWT y el cliente que llama a la API de pagos.
+4.  **Api (Capa de Presentación):** Depende de Application e Infrastructure. Contiene los Controladores (Controllers) que exponen los endpoints, middlewares (para atrapar errores globalmente) y la configuración inicial (`Program.cs`, `appsettings.json`).
 
-## 9. Repositorios e Inversión de Dependencias
-**Pregunta:** *Señalá dónde se define la interfaz del repositorio y dónde se implementa, y por qué va así.*
-*   **Dónde mostrarlo:** 
-    *   Interfaz: `ECommerce/src/ECommerce.Application/Interfaces/IOrderRepository.cs`.
-    *   Implementación: `ECommerce/src/ECommerce.Infrastructure/Repositories/OrderRepository.cs`.
-*   **Respuesta a estudiar:**
-    > "La interfaz se define en `Application` porque los casos de uso son los que dictan *qué* datos necesitan recuperar o guardar, sin importar la tecnología. La implementación real va en `Infrastructure` porque es ahí donde usamos Entity Framework Core para conectarnos a la base de datos SQL. Esto respeta el **Principio de Inversión de Dependencias** (D de SOLID): los módulos de alto nivel (casos de uso) no dependen de detalles de bajo nivel (base de datos), ambos dependen de abstracciones (la interfaz)."
+---
+ 
+## ⚙️ 3. Flujo de Ejecución (End-to-End)
+
+Si el profesor te pide: *"Explicame qué pasa cuando un usuario crea una orden"*, debes relatar este flujo:
+
+1.  **Controller:** La petición HTTP POST llega a `OrdersController` en la capa Api.
+2.  **MediatR:** El controlador no tiene lógica, simplemente crea un `CreateOrderCommand` (un objeto con los datos) y se lo pasa a MediatR (`_mediator.Send()`).
+3.  **Handler:** MediatR busca en la capa Application quién maneja ese comando, y ejecuta el `CreateOrderCommandHandler`.
+4.  **Lógica (Application):** El Handler usa los repositorios (`IProductRepository`, `IOrderRepository`) para validar que los productos existan y tengan stock.
+5.  **Dominio:** Se crea la entidad `Order`.
+6.  **Microservicio Externo (Infraestructura):** El Handler llama al servicio de pagos a través de una interfaz (`IPaymentServiceClient`), cuya implementación real en la capa de Infraestructura hace un HTTP POST a la URL de `PaymentService`.
+7.  **Decisión:** 
+    *   Si el PaymentService devuelve Ok (el pago es < $100.000), la orden se guarda como `Paid`.
+    *   Si rechaza el pago (>= $100.000) o si el servicio está caído (Timeout), se atrapa la excepción, se devuelve el stock a los productos y la orden queda `PaymentRejected`.
+8.  **Persistencia:** Se guarda todo en la base de datos a través de EF Core.
+
+---
+
+## ❓ 4. Preguntas Frecuentes del Profesor y Dónde Mostrarlo
+
+### Pregunta 1: Regla de Dependencia en Clean Architecture
+**Profesor:** *Señalame cada capa en el proyecto y justificá la regla de dependencia (por qué Application no referencia a Infrastructure).*
+*   **Dónde mostrarlo:** Abre `ECommerce.Application.csproj` y muestra que solo hace referencia a `ECommerce.Domain`.
+*   **Respuesta:** "La regla de dependencia dicta que dependemos hacia adentro. Application tiene los casos de uso y no debe acoplarse a tecnologías concretas (Infrastructure). Si mañana cambiamos SQL por MongoDB, los casos de uso no cambian ni una línea."
+
+### Pregunta 2: CQRS y MediatR
+**Profesor:** *Mostrame un Command y un Query concretos. Explicá por qué usaron MediatR y qué pasaría si pusieran esa lógica directamente en el Controller.*
+*   **Dónde mostrarlo:** Un Command en `Application/Commands` y su Handler.
+*   **Respuesta:** "Un Command cambia el estado (crea/actualiza), un Query solo lee. MediatR desacopla el Controller de la lógica. Si la lógica estuviera en el Controller, inyectaríamos decenas de repositorios, sería difícil de testear   y romperíamos el Principio de Responsabilidad Única (SRP)."
+
+### Pregunta 3: Reglas de Negocio en el Dominio (Dominio Rico)
+**Profesor:** *Señalá dónde vive una regla de negocio y explicala.*
+*   **Dónde mostrarlo:** Entidad `Payment.cs` en PaymentService (`IsApproved()`).
+*   **Respuesta:** "Las reglas de negocio no deben estar tiradas en los Handlers, sino encapsuladas en las entidades. En `Payment`, el método `IsApproved()` aprueba solo pagos menores a $100.000. La entidad valida su propio estado."
+
+### Pregunta 4: Cliente HTTP (Microservicios)
+**Profesor:** *Mostrá el registro de HttpClient y explicá por qué usan IHttpClientFactory y no `new HttpClient()`.*
+*   **Dónde mostrarlo:** `InfrastructureServiceExtensions.cs` (donde dice `services.AddHttpClient`).
+*   **Respuesta:** "Usamos un 'Typed Client' con `IHttpClientFactory`. No usamos `new HttpClient()` porque instanciarlo a mano agota los sockets del sistema (Socket Exhaustion). El factory maneja eficientemente el ciclo de vida y la conexión."
+
+### Pregunta 5: Contratos y DTOs
+**Profesor:** *Señalá el DTO de contrato y explicá por qué no exponen la entidad de dominio por HTTP.*
+*   **Dónde mostrarlo:** Carpeta de DTOs en `Application`.
+*   **Respuesta:** "Usamos DTOs (Data Transfer Objects) para definir el contrato. No exponemos las Entidades (ej: User u Order) porque pueden tener datos sensibles (passwords) o referencias circulares. El DTO asegura que solo viaja por la red lo estrictamente necesario."
+
+### Pregunta 6: Resiliencia (Fallo en Microservicio)
+**Profesor:** *¿Qué pasa si el servicio de pagos está caído? ¿Se cae todo tu sistema?*
+*   **Dónde mostrarlo:** `CreateOrderCommandHandler.cs` (el bloque `try/catch` que atrapa `HttpRequestException`).
+*   **Respuesta:** "No se cae el sistema. Configuramos un timeout. Si el servicio de pagos falla, el bloque catch lo atrapa, marcamos la orden como `PaymentRejected`, devolvemos el stock reservado y devolvemos un mensaje de error claro al usuario."
+
+### Pregunta 7: Configuración (Appsettings)
+**Profesor:** *Mostrá de dónde sale la URL del segundo servicio y qué pasa si cambia el puerto.*
+*   **Dónde mostrarlo:** `appsettings.json` (Sección `PaymentSettings:BaseUrl`).
+*   **Respuesta:** "Está centralizada en `appsettings.json`. Si cambia de puerto o vamos a la nube, solo editamos este archivo de texto sin tener que recompilar el código C# (Options Pattern)."
+
+### Pregunta 8: JWT, Autenticación vs Autorización
+**Profesor:** *Mostrá cómo se genera el JWT, explicá la diferencia entre autenticación y autorización.*
+*   **Dónde mostrarlo:** `JwtTokenService.cs` (Generación) y un Controller con `[Authorize(Roles="Admin")]`.
+*   **Respuesta:** "En `JwtTokenService` generamos el token inyectando 'claims' (ID, Rol). **Autenticación** es '¿Quién eres?' (login exitoso da el token). **Autorización** es '¿Qué puedes hacer?' (el atributo Authorize bloquea a usuarios sin rol Admin)."
+
+### Pregunta 9: Inversión de Dependencias (SOLID)
+**Profesor:** *¿Por qué la interfaz del repositorio está en una capa y la implementación en otra?*
+*   **Dónde mostrarlo:** Interfaz en `Application/Interfaces` e Implementación en `Infrastructure/Repositories`.
+*   **Respuesta:** "Es el Principio de Inversión de Dependencias (D de SOLID). Los casos de uso (alto nivel) dictan qué datos necesitan (la Interfaz). La Infraestructura (bajo nivel) obedece e implementa el cómo (Entity Framework). Ambos dependen de la abstracción."
+
+---
+
+## 🚀 5. Cómo Demostrar el Proyecto en Vivo
+
+1. **Levantar ambos proyectos:** Ejecuta ambos proyectos (ECommerce en 5117 y PaymentService en 5200).
+2. **Generar Token (Login):** Usa Swagger en ECommerce `POST /api/auth/login` con:
+   *   Email: `admin@ecommerce.com`
+   *   Password: `AdminPassword123!`
+3. **Autorizar Swagger:** Copia el token devuelto, haz clic en el candado "Authorize" de Swagger y escribe `Bearer pegatu_token_aqui`.
+4. **Probar Regla de Negocio:**
+   *   Crea una orden de poco valor (< $100.000) y muestra que queda `Paid`.
+   *   Crea una orden muy cara (>= $100.000) y muestra que queda `PaymentRejected`.
+5. **Probar Resiliencia (Sistema Caído):**
+   *   Apaga la consola de `PaymentService.Api`.
+   *   Intenta crear otra orden.
+   *   Demuestra que el sistema principal sigue vivo, que devuelve un error controlado por timeout, y que no se cae la base de datos principal.
+
+¡Con esto estás listo para sacar un 10! Éxitos.
