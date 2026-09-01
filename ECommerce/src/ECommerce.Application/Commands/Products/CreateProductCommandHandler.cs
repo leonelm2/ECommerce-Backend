@@ -14,6 +14,10 @@ public sealed class CreateProductCommandHandler : IRequestHandler<CreateProductC
         _productRepository = productRepository;
     }
 
+    // PASO 3: EL HANDLER (LA COCINA)
+    // MediatR busca automáticamente esta clase porque implementa IRequestHandler<CreateProductCommand, ProductDto>.
+    // Aquí es donde vive la lógica real: se recibe el paquete (request), se mapea a una entidad de base de datos (Product), 
+    // se guarda en el repositorio y se devuelve el DTO de respuesta.
     public async Task<ProductDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var product = new Product

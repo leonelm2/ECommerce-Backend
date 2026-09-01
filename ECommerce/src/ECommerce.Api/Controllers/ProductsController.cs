@@ -40,6 +40,9 @@ public class ProductsController : ControllerBase
         return Ok(product);
     }
 
+    // PASO 1: EL CONTROLADOR RECIBE LA PETICIÓN HTTP
+    // Cuando el cliente envía un POST a /api/products, ASP.NET Core mapea el JSON del body a la clase "CreateProductCommand" (request).
+    // El controlador NO tiene lógica de base de datos. Solo recibe el paquete y se lo entrega al mensajero (MediatR) con _mediator.Send(request).
     [HttpPost]
     [Authorize(Roles = UserRoles.Admin)]
     [ProducesResponseType(typeof(ProductDto), StatusCodes.Status201Created)]
