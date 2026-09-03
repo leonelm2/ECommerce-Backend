@@ -40,7 +40,6 @@ builder.Services.Configure<AdminSettings>(builder.Configuration.GetSection("Admi
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()
     ?? throw new InvalidOperationException("JwtSettings no configurado.");
 if (string.IsNullOrWhiteSpace(jwtSettings.Secret)
-    || jwtSettings.Secret.Contains("ReplaceWithSecure")
     || Encoding.UTF8.GetByteCount(jwtSettings.Secret) < 32)
 {
     throw new InvalidOperationException("JwtSettings:Secret debe configurarse mediante variables de entorno o User Secrets y tener al menos 32 bytes de longitud.");
@@ -50,10 +49,9 @@ var adminSettings = builder.Configuration.GetSection("AdminSettings").Get<AdminS
     ?? throw new InvalidOperationException("AdminSettings no configurado.");
 if (string.IsNullOrWhiteSpace(adminSettings.Username)
     || string.IsNullOrWhiteSpace(adminSettings.Email)
-    || string.IsNullOrWhiteSpace(adminSettings.Password)
-    || adminSettings.Password.Contains("ReplaceWithSecure"))
+    || string.IsNullOrWhiteSpace(adminSettings.Password))
 {
-    throw new InvalidOperationException("AdminSettings debe configurarse mediante variables de entorno o User Secrets.");
+    throw new InvalidOperationException("AdminSettings debe configurarse.");
 }
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -82,9 +80,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Clean Architecture API",
+        Title = "E-Commerce API",
         Version = "v1",
-        Description = "API REST profesional con Clean Architecture, Entity Framework Core y JWT"
+        Description = "API REST para el Trabajo Final de E-Commerce"
     });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
