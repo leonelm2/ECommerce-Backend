@@ -8838,19 +8838,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Docente\\.nuget\\packages\\": {}
+    "C:\\Users\\leone\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api.Tests\\ECommerce.Api.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Api.Tests\\ECommerce.Api.Tests.csproj",
       "projectName": "ECommerce.Api.Tests",
-      "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api.Tests\\ECommerce.Api.Tests.csproj",
-      "packagesPath": "C:\\Users\\Docente\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api.Tests\\obj\\",
+      "projectPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Api.Tests\\ECommerce.Api.Tests.csproj",
+      "packagesPath": "C:\\Users\\leone\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Api.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Docente\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\leone\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -8862,8 +8862,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api\\ECommerce.Api.csproj": {
-              "projectPath": "C:\\Users\\Docente\\Desktop\\ECommerce-Backend-1\\src\\ECommerce.Api\\ECommerce.Api.csproj"
+            "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Api\\ECommerce.Api.csproj": {
+              "projectPath": "C:\\Users\\leone\\ECommerce Backend\\src\\ECommerce.Api\\ECommerce.Api.csproj"
             }
           }
         }
@@ -8918,7 +8918,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.422/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.419/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
